@@ -1,0 +1,17 @@
+---
+# tasks file for brew
+- name: brew
+  become: no
+  block:
+    - name: brew install
+      shell: test -e /home/linuxbrew/.linuxbrew/bin/brew || /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+      changed_when: False
+
+    - name: brew bundle Linux
+      shell: ! test -e /home/linuxbrew/.linuxbrew/bin/brew || /home/linuxbrew/.linuxbrew/bin/brew bundle --file {{ brew_file_Linux }}
+      changed_when: False
+
+    - name: brew bundle cleanup Linux
+      shell: ! test -e /home/linuxbrew/.linuxbrew/bin/brew || /home/linuxbrew/.linuxbrew/bin/brew bundle cleanup --force --file {{ brew_file_Linux }}
+      changed_when: False
+  when: ansible_distribution != 'MacOSX'

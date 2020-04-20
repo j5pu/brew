@@ -1,0 +1,5 @@
+---
+# defaults file for brew
+
+brew_file_Linux: "{{ PACKAGES }}/Brewfile-Linux"
+brew_file_MacOSX: "{{ PACKAGES }}/Brewfile"
